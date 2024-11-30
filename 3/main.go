@@ -44,20 +44,19 @@ func checkLine(currLine *[]rune, prevLine *[]rune, nextLine *[]rune) int {
 		topNum := getNum(prevLine, index)
 		topRightNum := getNum(prevLine, index+1)
 		fmt.Println("top", topLeftNum, topNum, topRightNum)
-		lineTotal += topLeftNum + topNum + topRightNum
 
 		// check currLine
 		currleftNum := getNum(currLine, index-1)
 		currRightNum := getNum(currLine, index+1)
-		lineTotal += currleftNum + currRightNum
 		fmt.Println("current", currleftNum, currRightNum)
 
 		// check nextLine
 		bottomLeftNum := getNum(nextLine, index-1)
 		bottomNum := getNum(nextLine, index)
 		bottomRightNum := getNum(nextLine, index+1)
-		lineTotal += bottomLeftNum + bottomNum + bottomRightNum
 		fmt.Println("bottom", bottomLeftNum, bottomNum, bottomRightNum)
+
+		lineTotal += getGearRatio([]int{topLeftNum, topNum, topRightNum, currleftNum, currRightNum, bottomLeftNum, bottomNum, bottomRightNum})
 
 		fmt.Println()
 	}
@@ -116,6 +115,28 @@ func getNum(line *[]rune, searchIndex int) int {
 	}
 
 	return number
+}
+
+// Return the gear ratio
+// A gear is any * symbol that is adjacent to exactly two part numbers.
+//
+// Its gear ratio is the result of multiplying those two numbers together.
+func getGearRatio(partNums []int) int {
+	nonZeroCount := 0
+	gearRatio := 1
+
+	for _, part := range partNums {
+		if part > 0 {
+			nonZeroCount += 1
+			gearRatio *= part
+		}
+	}
+
+	if nonZeroCount != 2 {
+		return 0
+	}
+
+	return gearRatio
 }
 
 func main() {

@@ -1,24 +1,44 @@
 ```
-  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
---| - |-- |-- |-- |-- |-- |-- |-- |-- |-- |
-0 | 4 | 6 | 7 | . | . | 1 | 1 | 4 | . | . |
-1 | . | . | . | * | . | . | . | . | . | . |
-2 | . | . | 3 | 5 | . | . | 6 | 3 | 3 | . |
-3 | . | . | . | . | . | . | # | . | . | . |
-4 | 6 | 1 | 7 | * | . | . | . | . | . | . |
-5 | . | . | . | . | . | + | . | 5 | 8 | . |
-6 | . | . | 5 | 9 | 2 | . | . | . | . | . |
-7 | . | . | . | . | . | . | 7 | 5 | 5 | . |
-8 | . | . | . | $ | . | * | . | . | . | . |
-9 | . | 6 | 6 | 4 | . | 5 | 9 | 8 | . | . |
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..
 ```
 
+do inplace update upon reaching a symbol, update the number to a `.`.
+
+prevent double counting.
 
 ```
-| *| *| *| *|
-| *| 3| 5| *|
-| *| *| *| *|
+467..114..
+...*......
+..35..633.
 ```
 
+read line-by-line, char-by-char.
 
+upon hitting a symbol, find the possible numbers (top-left, top, top-right, left, right, bottom-left, bottom, bottom-right).
 
+if it is a number, then replace the number to a `.`.
+
+will become
+
+1. the top-left number(467), after reading
+```
+.....114..
+...*......
+..35..633.
+```
+
+2. the bottom number (35), after reading
+```
+.....114..
+...*......
+......633.
+```
