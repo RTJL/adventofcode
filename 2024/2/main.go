@@ -68,6 +68,30 @@ func checkReport(report []int) bool {
 	return true
 }
 
+// brute force
+func checkReportWithFix(report []int) bool {
+	isValid := checkReport(report)
+	if isValid {
+		return true
+	}
+
+	fmt.Println(report)
+
+	for i := 0; i < len(report); i++ {
+		newReport := make([]int, 0, len(report)-1)
+		newReport = append(newReport, report[:i]...)
+		newReport = append(newReport, report[i+1:]...)
+
+		isValid = checkReport(newReport)
+		fmt.Println(isValid, newReport, report, i)
+		if isValid {
+			return true
+		}
+	}
+
+	return false
+}
+
 func main() {
 	reports := getInput("input.txt")
 	fmt.Println(reports)
@@ -75,7 +99,7 @@ func main() {
 	validCount := 0
 
 	for _, report := range reports {
-		isValid := checkReport(report)
+		isValid := checkReportWithFix(report)
 		if isValid {
 			validCount += 1
 		}
